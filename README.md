@@ -2,7 +2,7 @@
 ## Curso de Ciências da Computação
 # Disciplina Programação WEB
 # Professor: Msc Francisco Carlos Lima Pereira
-
+# Início: 31/10/2024
 ## Descrição da Atividade
 
 Este repositório foi criado como parte de uma atividade da disciplina de **Programação Web** do curso de **Ciência da Computação** na **Universidade Estadual de Roraima (UERR)**. O objetivo da atividade é desenvolver um sistema web utilizando **Python** e **Django**, aplicando boas práticas de desenvolvimento, incluindo versionamento com **Git**, organização de repositório e implementação de funcionalidades essenciais para um sistema web dinâmico.
