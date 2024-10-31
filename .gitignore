@@ -1,0 +1,30 @@
+# Ambiente virtual
+../venv/
+
+# Diretórios e arquivos criados pelo Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Arquivos de log e banco de dados local
+*.log
+*.sqlite3
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
+# Arquivos de sistema (gerados no Mac e Windows)
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração locais (exemplo: .env)
+.env
+
+# Arquivos de cache do Django
+*.pot
+*.mo
+
+# Arquivos de migração do Django
+*/migrations/*.py
+!*/migrations/__init__.py
