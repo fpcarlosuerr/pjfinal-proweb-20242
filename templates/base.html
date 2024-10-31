@@ -28,8 +28,10 @@
             </button>
         </div>
     </nav>
-    {% include "_menu.html" %}
-
+    {% block menu %}
+       
+    {% endblock %}
+    
     <!-- Conteúdo Principal -->
     <main class="container mt-4">
         {% block content %}
