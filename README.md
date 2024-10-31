@@ -37,6 +37,7 @@ nome_do_projeto/
 │   ├── urls.py
 │   └── wsgi.py
 └── README.md
+...
 
 ## Funcionalidades do Sistema
 
