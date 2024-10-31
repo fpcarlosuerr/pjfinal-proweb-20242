@@ -47,6 +47,23 @@ nome_do_projeto/
 4. **Autenticação**: Controle de acesso com login/logout e restrição de acesso a áreas específicas.
 5. **Organização de Código**: Manter o repositório estruturado e versionado no GitHub, com commits bem descritos e regulares.
 
+## Aplicativos (Projetos) a Serem Desenvolvidos
+
+Cada grupo desenvolverá um dos seguintes aplicativos, explorando a criação de modelos, templates, formulários, administração e controle de acesso:
+
+1. **Sistema de Biblioteca Online**: Para gerenciamento de livros, autores, alunos e reservas.
+2. **Plataforma de Ensino a Distância**: Onde alunos podem se matricular em cursos, acessar aulas e interagir com professores.
+3. **Sistema de Gestão de Projetos**: Para organizar tarefas, equipes e progresso dos projetos.
+4. **Sistema de Reserva de Salas de Reunião**: Permite o agendamento de salas de reunião por funcionários.
+5. **Sistema de Controle Acadêmico**: Para gerenciar informações de notas e frequência dos alunos.
+6. **Sistema de Compras e Vendas Online**: Plataforma de e-commerce para gerenciamento de produtos, clientes e pedidos.
+7. **Sistema de Gerenciamento de Eventos**: Onde usuários podem criar e gerenciar eventos com convidados.
+8. **Sistema de Monitoramento de Veículos**: Controle de entrada e saída de veículos em um estacionamento.
+9. **Sistema de Feedback de Produtos**: Para clientes avaliarem e comentarem sobre produtos comprados.
+10. **Sistema de Blog com Comentários**: Onde usuários podem criar posts e interagir com comentários.
+11. **Sistema de Gerenciamento de Consultório Médico**: Para controle de consultas, pacientes e prontuários médicos.
+12. **Sistema de Gerenciamento de Imóveis para Locação**: Para gestão de contratos, imóveis e inquilinos.
+
 ## Tecnologias e Ferramentas
 
 Para a implementação do projeto, serão utilizados os seguintes aplicativos e ferramentas:
