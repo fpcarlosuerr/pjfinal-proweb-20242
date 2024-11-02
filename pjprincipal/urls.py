@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index,name='index'),
     path('applocaimoveis/',include('applocaimoveis.urls')),
+    path('app_gestao_proj/', include('app_gestao_proj.urls'))
 ]
