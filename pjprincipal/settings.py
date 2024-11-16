@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'applocaimoveis',
-    'app_gestao_proj',  
+    'app_gestao_proj',
+    'controle_academico',
 ]
 
 MIDDLEWARE = [
