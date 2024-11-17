@@ -1,0 +1,1 @@
+default_app_config = 'novo_nome.apps.NovoNomeConfig'

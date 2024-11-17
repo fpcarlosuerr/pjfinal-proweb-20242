@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'applocaimoveis',
     'app_gestao_proj',
-    'controle_academico',
+    'app_controle_academico',
 ]
 
 MIDDLEWARE = [
