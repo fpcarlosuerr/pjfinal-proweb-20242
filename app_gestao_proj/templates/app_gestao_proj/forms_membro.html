@@ -1,0 +1,107 @@
+{% extends 'app_gestao_proj//base_app_gestao.html' %}
+
+{% block title %} Cadastro de membros {% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container-sm"></div>
+    {%if messages %}
+    <div>
+        {% for massage in messages %}
+            <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
+                {{massage}}
+                <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header">
+            Cadastrar Membros
+        </div>
+        <div class="card-body">
+            <form method="POST"
+            action="{% if membro.id %} 
+                         {% url 'editar_membros' membro.id %}
+                    {% else %}
+                         {% url 'cadastrar_membros' %}
+                    {% endif %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.nome_membro.label_tag }}
+                    {{ form.nome_membro }}
+                </div>
+                <div class="mb-3">
+                    {{ form.funcao.label_tag }}
+                    {{ form.funcao }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.telefone.label_tag }}
+                    {{ form.telefone }}
+                </div>
+                <input type="hidden" id="{{membro.id}}">
+                <button type="submit" class="btn btn-primary">Salvar</button>    
+            </form>
+        </div>
+    </div>           
+
+    <div class="card"></div>
+        <div class="card-header">
+            Lista de membros
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#id</td>
+                            <td>Nome</td>
+                            <td>Função</td>
+                            <td>E-mail</td>
+                            <td>Telefone</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in lista_membros %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.nome_membro}}</td>
+                            <td>{{i.funcao}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.telefone}}</td>
+                            <td><a href="{% url 'editar_membros' i.id %}"  class="btn btn-primary">Alterar</a></td>
+                                <td><a href="{% url 'excluir_membros' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(event, element) {
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+            }
+        })
+    }
+</script>
+{% endblock %}
