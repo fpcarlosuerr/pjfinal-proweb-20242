@@ -30,6 +30,7 @@ class Projeto(models.Model):
         (2, 'Concluido'),
         (3, 'Abandonado')
     ]
+    
     nome_proj = models.CharField(max_length = 300)
     descricao = models.TextField(null= True)
     situacao = models.IntegerField(choices = situacao_choices) 
@@ -48,23 +49,23 @@ class Tarefa(models.Model):
         (3, 'Abandonada')
     ]
 
+    projeto = models.ForeignKey(
+        Projeto, 
+        related_name= "projeto",
+        on_delete= models.CASCADE,
+    )
     nome_tarefa = models.CharField(max_length = 200)
     descricao = models.TextField(null= True)
-    situacao = models.IntegerField(choices = situacao_choices )
-    data_conclusao = models.DateField(null= True)
     equipe_responsavel = models.ForeignKey(
         Equipe, 
         on_delete = models.SET_NULL,
         null=True,
         related_name= "tarefa_responsavel"
     )
+    situacao = models.IntegerField(choices = situacao_choices )
+    data_conclusao = models.DateField(null= True)
     membros_tarefa = models.ManyToManyField(
         Membro, related_name= "fazer_terefa",
-    )
-    projeto = models.ForeignKey(
-        Projeto, 
-        related_name= "projeto",
-        on_delete= models.CASCADE,
     )
 
     def __str__(self):

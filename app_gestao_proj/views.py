@@ -59,3 +59,6 @@ def excluir_membros(request, id):
         'lista_membros': lista_membros,
         'membro': membro
     })
+
+# Método para o cadastro de projetos 
+# def criar_projetos(request, id = None):
