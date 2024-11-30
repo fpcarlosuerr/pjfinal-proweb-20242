@@ -1,6 +1,6 @@
 {% extends 'app_gestao_proj/base_app_gestao.html' %}
 
-{% block title %} Cadastro de membros {% endblock %}
+{% block title %} Cadastro de Projetos {% endblock %}
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -19,37 +19,41 @@
 
     <div class="card">
         <div class="card-header">
-            Cadastrar Membros
+            Cadastrar Projetos
         </div>
         <div class="card-body">
             <form method="POST"
-            action="{% if membro.id %} 
-                         {% url 'editar_membros' membro.id %}
+            action="{% if projeto.id %} 
+                         {% url 'editar_projetos' projeto.id %}
                     {% else %}
-                         {% url 'cadastrar_membros' %}
+                         {% url 'criar_projetos' %}
                     {% endif %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.nome_membro.label_tag }}
-                    {{ form.nome_membro }}
+                    {{ form.equipe_responsavel.label_tag }}
+                    {{ form.equipe_responsavel }}
                 </div>
                 <div class="mb-3">
-                    {{ form.funcao.label_tag }}
-                    {{ form.funcao }}
+                    {{ form.nome_projeto.label_tag }}
+                    {{ form.nome_projeto }}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label_tag }}
-                    {{ form.email }}
+                    {{ form.descricao.label_tag }}
+                    {{ form.descricao }}
                 </div>
                 <div class="mb-3">
-                    {{ form.telefone.label_tag }}
-                    {{ form.telefone }}
+                    {{ form.situacao.label_tag }}
+                    {{ form.situacao }}
                 </div>
                 <div class="mb-3">
-                    {{ form.equipe.label_tag }}
-                    {{ form.equipe }}
+                    {{ form.data_inicio.label_tag }}
+                    {{ form.data_inicio }}
                 </div>
-                <input type="hidden" id="{{membro.id}}">
+                <div class="mb-3">
+                    {{ form.data_conclusao.label_tag }}
+                    {{ form.data_conclusao }}
+                </div>
+                <input type="hidden" id="{{projeto.id}}">
                 <button type="submit" class="btn btn-primary">Salvar</button>    
             </form>
         </div>
@@ -57,30 +61,34 @@
 
     <div class="card"></div>
         <div class="card-header">
-            Lista de membros
+            Lista de projetos
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>Nome</td>
-                            <td>Função</td>
-                            <td>E-mail</td>
-                            <td>Telefone</td>
-                            <td>Equipe</td>
+                            <td>#id</td>
+                            <td>Equipe Responsável</td>
+                            <td>Projeto</td>
+                            <td>Descrição</td>
+                            <td>Situação</td>
+                            <td>Data de Inicio</td>
+                            <td>Data de conclusáo</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i in lista_membros %}
+                        {% for i in lista_projetos %}
                         <tr>
-                            <td>{{i.nome_membro}}</td>
-                            <td>{{i.funcao}}</td>
-                            <td>{{i.email}}</td>
-                            <td>{{i.telefone}}</td>
-                            <td>{{i.equipe}}</td>
-                            <td><a href="{% url 'editar_membros' i.id %}"  class="btn btn-primary">Alterar</a></td>
-                                <td><a href="{% url 'excluir_membros' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            <td>{{i.id}}</td>
+                            <td>{{i.equipe_responsavel}}</td>
+                            <td>{{i.nome_projeto}}</td>
+                            <td>{{i.descricao}}</td>
+                            <td>{{i.situacao}}</td>
+                            <td>{{i.data_inicio}}</td>
+                            <td>{{i.data_conclusao}}</td>
+                            <td><a href="{% url 'editar_projetos' i.id %}"  class="btn btn-primary">Alterar</a></td>
+                                <td><a href="{% url 'excluir_projetos' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

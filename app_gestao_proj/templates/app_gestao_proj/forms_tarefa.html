@@ -1,0 +1,121 @@
+{% extends 'app_gestao_proj/base_app_gestao.html' %}
+
+{% block title %} Cadastro de Tarefas {% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container-sm"></div>
+    {%if messages %}
+    <div>
+        {% for massage in messages %}
+            <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
+                {{massage}}
+                <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header">
+            Cadastrar Tarefas
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{% if tarefa %}{% url 'editar_tarefas' tarefa.id %}{% else %}{% url 'criar_tarefas' %}{% endif %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_projeto" class="form-label">{{ form.projeto.label }}</label>
+                    {{ form.projeto }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_nome_tarefa" class="form-label">{{ form.nome_tarefa.label }}</label>
+                    {{ form.nome_tarefa }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_descricao" class="form-label">{{ form.descricao.label }}</label>
+                    {{ form.descricao }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_situacao" class="form-label">{{ form.situacao.label }}</label>
+                    {{ form.situacao }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_data_conclusao" class="form-label">{{ form.data_conclusao.label }}</label>
+                    {{ form.data_conclusao }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_membros_tarefa" class="form-label">{{ form.membros_tarefa.label }}</label>
+                    {{ form.membros_tarefa }}
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{% url 'listar_tarefas' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+    
+    <div class="card mt-4">
+        <div class="card-header">
+            Lista de Tarefas
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Projeto</th>
+                            <th>Tarefa</th>
+                            <th>Descrição</th>
+                            <th>Situação</th>
+                            <th>Data de Conclusão</th>
+                            <th>Membros</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in lista_tarefas %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.projeto }}</td>
+                            <td>{{ i.nome_tarefa }}</td>
+                            <td>{{ i.descricao }}</td>
+                            <td>{{ i.situacao }}</td>
+                            <td>{{ i.data_conclusao|date:"d/m/Y" }}</td>
+                            <td>{{ i.membros_tarefa.all|join:", " }}</td>
+                            <td>
+                                <a href="{% url 'editar_tarefas' i.id %}" class="btn btn-sm btn-primary">Alterar</a>
+                                <a href="{% url 'excluir_tarefas' i.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8">Nenhuma tarefa cadastrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(event, element) {
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+            }
+        })
+    }
+</script>
+{% endblock %}
