@@ -1,0 +1,55 @@
+{%block menu%}
+    {%include 'app_salas_reuniao/_menu.html' %}
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Sala</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Cadastrar Equipamento</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{{ form.nome.label }}</label>
+                <input type="text" name="{{ form.nome.name }}" class="form-control" >
+                {% if form.nome.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.nome}}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>{{ form.capacidade.label }}</label>
+                <input type="text" name="{{ form.nome.name }}" class="form-control" >
+                {% if form.capacidade.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.capacidade}}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>{{ form.localizacao.label }}</label>
+                <input type="text" name="{{ form.localizacao.name }}" class="form-control" >
+                {% if form.localizacao.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.localizacao}}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{%block menu%}
+    {%include 'app_salas_reuniao/_menu.html' %}
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Equipamento</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Cadastrar Equipamento</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{{ form.nome.label }}</label>
+                <input type="text" name="{{ form.nome.name }}" class="form-control" >
+                {% if form.nome.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.nome}}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <select name="{{ form.sala.name }}" class="form-control" id="{{ form.sala.id_for_label }}">
+                {% for choice in form.sala.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.sala.value %} selected {% endif %}>
+                        {{ choice.1 }}
+                    </option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
