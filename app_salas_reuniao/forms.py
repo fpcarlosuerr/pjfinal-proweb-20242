@@ -13,7 +13,11 @@ class FuncionarioForm(forms.ModelForm):
                'ramal': "Ramal"
           }
           widgets = {
-               'ramal': forms.NumberInput()
+               'nome': forms.TextInput(attrs={'class':'form-control'}),
+               'CPF': forms.TextInput(attrs={'class':'form-control'}),
+               'email': forms.EmailInput(attrs={'class':'form-control'}),
+               'ramal': forms.TextInput(attrs={'class':'form-control'}),
+
           }
 
 class SalaForm(forms.ModelForm):
@@ -26,6 +30,11 @@ class SalaForm(forms.ModelForm):
                'capacidade': "Capacidade",
                'localizacao': "Localização",
           }
+          widgets = {
+               'nome': forms.TextInput(attrs={'class':'form-control'}),
+               'capacidade': forms.NumberInput(attrs={'class':'form-control'}),
+               'localizacao': forms.TextInput(attrs={'class':'form-control'}),
+          }
 
 class EquipamentoForm(forms.ModelForm):
      class Meta:
@@ -37,10 +46,10 @@ class EquipamentoForm(forms.ModelForm):
                'sala': "Sala:",
           }
           widgets = {
-               "sala": forms.Select(attrs={'classe': 'form-control'})
+               'nome': forms.TextInput(attrs={'class':'form-control'}),
+               'sala': forms.Select(attrs={'class':'form-control'}),
           }
-
-class ReservaFom(forms.ModelForm):
+class ReservaForm(forms.ModelForm):
      class Meta:
           model = Reserva
           fields = ['funcionario','sala', 'data_horario_inicio', 'data_horario_termino', 'equipamento']
@@ -51,5 +60,12 @@ class ReservaFom(forms.ModelForm):
                'data_horario_inicio': "Data:",
                'data_horario_termino': "Data:",
                'equipamento':" Selecione o Equipamento",
+          }
+          widgets = {
+               'funcionario': forms.Select(attrs={'class':'form-control'}),
+               'sala': forms.Select(attrs={'class':'form-control'}),
+               'data_horario_inicio': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+               'data_horario_termino': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+               'equipamento': forms.Select(attrs={'class':'form-control', 'id': 'id_equipamento'}),
           }
           

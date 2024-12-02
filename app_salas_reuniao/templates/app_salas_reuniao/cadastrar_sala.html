@@ -1,55 +1,42 @@
-{%block menu%}
-    {%include 'app_salas_reuniao/_menu.html' %}
-{% endblock %}
+{% extends 'app_salas_reuniao/base_salas_reuniao.html' %}
+{% load static %}
+{% block title %} Cadastro de Equipes {% endblock %}
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Sala</title>
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Cadastrar Equipamento</h1>
-        <form method="post">
+{% block content %}
+<div class="container-sm"></div>
+{%if messages %}
+<div>
+    {% for massage in messages %}
+        <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
+            {{massage}}
+            <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="card mb-3" style="border: 1px solid #007bff;">
+    <div class="card-header bg-primary text-white">
+        Cadastrar Sala
+    </div>
+    <div class="card-body">
+        <form method="POST">
             {% csrf_token %}
-            <div class="form-group">
-                <label>{{ form.nome.label }}</label>
-                <input type="text" name="{{ form.nome.name }}" class="form-control" >
-                {% if form.nome.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.nome}}
-                    </div>
-                {% endif %}
+            <div class="mb-3">
+                {{ form.nome.label_tag }}
+                {{ form.nome }}
             </div>
-            <br>
-            <div class="form-group">
-                <label>{{ form.capacidade.label }}</label>
-                <input type="text" name="{{ form.nome.name }}" class="form-control" >
-                {% if form.capacidade.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.capacidade}}
-                    </div>
-                {% endif %}
+            <div class="mb-3">
+                {{ form.capacidade.label_tag }}
+                {{ form.capacidade }}
+                
             </div>
-            <br>
-            <div class="form-group">
-                <label>{{ form.localizacao.label }}</label>
-                <input type="text" name="{{ form.localizacao.name }}" class="form-control" >
-                {% if form.localizacao.errors %}
-                    <div class="invalid-feedback">
-                        {{ form.localizacao}}
-                    </div>
-                {% endif %}
+            <div class="mb-3">
+                {{ form.localizacao.label_tag }}
+                {{ form.localizacao }}
             </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>    
         </form>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>
+
+{% endblock %}

@@ -1,4 +1,19 @@
-{%block menu%}
-    {%include 'app_salas_reuniao/_menu.html' %}
+{% extends 'app_salas_reuniao/base_salas_reuniao.html' %}
+
+{% block content %}
+
+{% for reserva in reservas %}
+<div class="card mb-3" style="border: 1px solid #007bff;">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">{{ reserva.funcionario }}</h5>
+    </div>
+    <div class="card-body">
+        <h6 class="card-title">{{ reserva.sala }}</h6>
+        <p class="card-text"><strong>Início:</strong> {{ reserva.data_horario_inicio }}</p>
+        <p class="card-text"><strong>Término:</strong> {{ reserva.data_horario_termino }}</p>
+        <a href="#" class="btn btn-info">Detalhes</a>
+    </div>
+</div>
+{% endfor %}
+
 {% endblock %}
-avisos

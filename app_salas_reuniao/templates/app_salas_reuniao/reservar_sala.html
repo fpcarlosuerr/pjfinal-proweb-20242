@@ -1,11 +1,74 @@
-{%block menu%}
-    {%include 'app_salas_reuniao/_menu.html' %}
+{% extends 'app_salas_reuniao/base_salas_reuniao.html' %}
+
+{% block title %} Reservas de salas {% endblock %}
+
+{% block content %}
+<div class="container-sm"></div>
+{%if messages %}
+<div>
+    {% for massage in messages %}
+        <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
+            {{massage}}
+            <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="card mb-3" style="border: 1px solid #007bff;">
+    <div class="card-header bg-primary text-white">
+        Reservar Sala de Reunião
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.funcionario.label_tag }}
+                {{ form.funcionario }}
+            </div>
+            <div class="mb-3">
+                {{ form.sala.label_tag }}
+                {{ form.sala }}
+            </div>
+            <div class="mb-3">
+                {{ form.equipamento.label_tag }}
+                {{ form.equipamento }}
+            </div>
+            <div class="mb-3">
+                {{ form.data_horario_inicio.label_tag }}
+                {{ form.data_horario_inicio }}
+            </div>
+            <div class="mb-3">
+                {{ form.data_horario_termino.label_tag }}
+                {{ form.data_horario_termino }}
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>    
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('id_sala').addEventListener('change', function() {
+        var salaId = this.value;
+        
+        fetch(`/get-equipamentos/${salaId}/`)
+            .then(response => response.json())
+            .then(data => {
+                var equipamentoSelect = document.getElementById('id_equipamento');
+                equipamentoSelect.innerHTML = ''; // Limpa as opções existentes
+    
+                // Adiciona uma opção vazia
+                var option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Selecione um Equipamento';
+                equipamentoSelect.appendChild(option);
+    
+                data.equipamentos.forEach(function(equipamento) {
+                    var option = document.createElement('option');
+                    option.value = equipamento.id;
+                    option.textContent = equipamento.nome;
+                    equipamentoSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao buscar equipamentos:', error));
+    });
+    </script>
 {% endblock %}
-
-reservar sala
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-
