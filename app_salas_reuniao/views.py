@@ -45,8 +45,10 @@ def cadastrar_equipamento(request):
     return render(request, 'app_salas_reuniao/_cadastrar_equipamento.html', {'form':form})
 
 def resevar_sala(request):
+    sala_id = request.GET.get('sala_id')
+    form = ReservaForm(sala_id=sala_id)
     if request.method == "POST":
-        form = ReservaForm(request.POST)
+        form = ReservaForm(request.POST, sala_id=sala_id)
         if form.is_valid():
             try:
                 form.save()
@@ -58,6 +60,8 @@ def resevar_sala(request):
         form = ReservaForm()
     return render(request, 'app_salas_reuniao/reservar_sala.html', {'form':form})
 
-def get_equipamentos(request, sala_id):
+def atualizar_equipamento(request):
+    sala_id = request.GET.get('sala_id')
     equipamentos = Equipamento.objects.filter(sala_id=sala_id).values('id', 'nome')
-    return JsonResponse({'equipamentos': list(equipamentos)})
+    return JsonResponse(list(equipamentos), safe=False)
+

@@ -1,4 +1,5 @@
 from django import forms
+from django.db import connection
 from .models import Funcionario, Sala, Equipamento, Reserva
 
 class FuncionarioForm(forms.ModelForm):
@@ -66,6 +67,13 @@ class ReservaForm(forms.ModelForm):
                'sala': forms.Select(attrs={'class':'form-control'}),
                'data_horario_inicio': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
                'data_horario_termino': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
-               'equipamento': forms.Select(attrs={'class':'form-control', 'id': 'id_equipamento'}),
           }
+     def __init__(self, *args, **kwargs):
+        sala_id = kwargs.pop('sala_id', None)  # Obtém o ID da sala se fornecido
+        super(ReservaForm, self).__init__(*args, **kwargs)
+        
+        if sala_id:
+            self.fields['equipamento'].queryset = Equipamento.objects.filter(sala_id=sala_id).order_by('nome')
+        else:
+            self.fields['equipamento'].queryset = Equipamento.objects.none()  # Se não houver sala, não mostra equipamentos
           

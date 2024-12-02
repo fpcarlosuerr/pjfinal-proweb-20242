@@ -45,30 +45,25 @@
         </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.getElementById('id_sala').addEventListener('change', function() {
-        var salaId = this.value;
-        
-        fetch(`/get-equipamentos/${salaId}/`)
-            .then(response => response.json())
-            .then(data => {
-                var equipamentoSelect = document.getElementById('id_equipamento');
-                equipamentoSelect.innerHTML = ''; // Limpa as opções existentes
-    
-                // Adiciona uma opção vazia
-                var option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'Selecione um Equipamento';
-                equipamentoSelect.appendChild(option);
-    
-                data.equipamentos.forEach(function(equipamento) {
-                    var option = document.createElement('option');
-                    option.value = equipamento.id;
-                    option.textContent = equipamento.nome;
-                    equipamentoSelect.appendChild(option);
+$(document).ready(function() {
+    $('#id_sala').change(function() {
+        var salaId = $(this).val();
+        // Faça uma requisição AJAX para obter os equipamentos da sala selecionada
+        $.ajax({
+            url: '{% url "atualizar_equipamento" %}',
+            data: {
+                'sala_id': salaId
+            },
+            success: function(data) {
+                $('#id_equipamento').empty(); // Limpa as opções atuais
+                $.each(data, function(index, equipamento) {
+                    $('#id_equipamento').append($('<option></option>').attr('value', equipamento.id).text(equipamento.nome));
                 });
-            })
-            .catch(error => console.error('Erro ao buscar equipamentos:', error));
+            }
+        });
     });
-    </script>
+});
+</script>
 {% endblock %}
