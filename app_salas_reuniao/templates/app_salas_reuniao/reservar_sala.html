@@ -45,25 +45,24 @@
         </form>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#id_sala').change(function() {
-        var salaId = $(this).val();
-        // Faça uma requisição AJAX para obter os equipamentos da sala selecionada
-        $.ajax({
-            url: '{% url "atualizar_equipamento" %}',
-            data: {
-                'sala_id': salaId
-            },
-            success: function(data) {
-                $('#id_equipamento').empty(); // Limpa as opções atuais
-                $.each(data, function(index, equipamento) {
-                    $('#id_equipamento').append($('<option></option>').attr('value', equipamento.id).text(equipamento.nome));
-                });
-            }
+    $(document).ready(function() {
+        $('#sala_id').change(function() {
+            var salaId = $(this).val();
+            // Faça uma requisição AJAX para obter os equipamentos da sala selecionada
+            $.ajax({
+                url: '{% url "atualizar_equipamento" %}',
+                data: {
+                    'sala_id': salaId
+                },
+                success: function(data) {
+                    $('#id_equipamento').empty(); // Limpa as opções atuais
+                    $.each(data, function(index, equipamento) {
+                        $('#id_equipamento').append($('<option></option>').attr('value', equipamento.id).text(equipamento.nome));
+                    });
+                }
+            });
         });
     });
-});
-</script>
+    </script>
 {% endblock %}

@@ -8,10 +8,10 @@
         <h5 class="mb-0">{{ reserva.funcionario }}</h5>
     </div>
     <div class="card-body">
-        <h6 class="card-title">{{ reserva.sala }}</h6>
+        <h6 class="card-text"><strong>Sala: </strong>{{ reserva.sala }}</h6>
         <p class="card-text"><strong>Início:</strong> {{ reserva.data_horario_inicio }}</p>
         <p class="card-text"><strong>Término:</strong> {{ reserva.data_horario_termino }}</p>
-        <a href="#" class="btn btn-info">Detalhes</a>
+        <a href="#" class="btn bg-primary text-white">Detalhes</a>
     </div>
 </div>
 {% endfor %}

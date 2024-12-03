@@ -20,7 +20,7 @@ def cadastrar_funcionario(request):
             return HttpResponseRedirect(reverse('cadastrar_funcionario'))
     else:
         form = FuncionarioForm()
-    return render(request, 'app_salas_reuniao/cadastrar_funcionario.html', {"form": form})
+    return render(request, 'app_salas_reuniao/cadastrar_funcionario.html', {'form': form})
 
 def cadastrar_sala(request):
     if request.method == "POST":
@@ -31,7 +31,7 @@ def cadastrar_sala(request):
             return HttpResponseRedirect(reverse('cadastrar_sala'))
     else:
         form = SalaForm()
-    return render(request, 'app_salas_reuniao/cadastrar_sala.html', {"form":form})
+    return render(request, 'app_salas_reuniao/cadastrar_sala.html', {'form':form})
 
 def cadastrar_equipamento(request):
     if request.method == "POST":
@@ -56,6 +56,8 @@ def resevar_sala(request):
                 return HttpResponseRedirect(reverse('resevar_sala'))
             except ValidationError as e:
                 messages.error(request, e)
+        else:
+            messages.error(request, 'RESERVA NÃO REALIZADA!!!')
     else:
         form = ReservaForm()
     return render(request, 'app_salas_reuniao/reservar_sala.html', {'form':form})
@@ -63,5 +65,4 @@ def resevar_sala(request):
 def atualizar_equipamento(request):
     sala_id = request.GET.get('sala_id')
     equipamentos = Equipamento.objects.filter(sala_id=sala_id).values('id', 'nome')
-    return JsonResponse(list(equipamentos), safe=False)
-
+    return JsonResponse(equipamentos, safe=False)

@@ -58,8 +58,8 @@ class ReservaForm(forms.ModelForm):
           labels = {
                'funcionario': "Selecione o funcionario:",
                'sala': "Selecione a sala:",
-               'data_horario_inicio': "Data:",
-               'data_horario_termino': "Data:",
+               'data_horario_inicio': "Data Inicio:",
+               'data_horario_termino': "Data Fim:",
                'equipamento':" Selecione o Equipamento",
           }
           widgets = {
