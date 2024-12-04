@@ -46,6 +46,7 @@
     </div>
 </div>
 <script>
+<<<<<<< HEAD
     $(document).ready(function() {
         $('#sala_id').change(function() {
             var salaId = $(this).val();
@@ -63,6 +64,31 @@
                 }
             });
         });
+=======
+    document.getElementById('id_sala').addEventListener('change', function() {
+        var salaId = this.value;
+        
+        fetch(`/get-equipamentos/${salaId}/`)
+            .then(response => response.json())
+            .then(data => {
+                var equipamentoSelect = document.getElementById('id_equipamento');
+                equipamentoSelect.innerHTML = ''; // Limpa as opções existentes
+    
+                // Adiciona uma opção vazia
+                var option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Selecione um Equipamento';
+                equipamentoSelect.appendChild(option);
+    
+                data.equipamentos.forEach(function(equipamento) {
+                    var option = document.createElement('option');
+                    option.value = equipamento.id;
+                    option.textContent = equipamento.nome;
+                    equipamentoSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao buscar equipamentos:', error));
+>>>>>>> parent of 54cbfac (Componete equipamento cadastrado com base na sala, equipe 4)
     });
     </script>
 {% endblock %}

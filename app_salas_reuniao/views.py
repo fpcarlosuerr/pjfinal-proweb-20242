@@ -45,10 +45,8 @@ def cadastrar_equipamento(request):
     return render(request, 'app_salas_reuniao/_cadastrar_equipamento.html', {'form':form})
 
 def resevar_sala(request):
-    sala_id = request.GET.get('sala_id')
-    form = ReservaForm(sala_id=sala_id)
     if request.method == "POST":
-        form = ReservaForm(request.POST, sala_id=sala_id)
+        form = ReservaForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
@@ -62,7 +60,10 @@ def resevar_sala(request):
         form = ReservaForm()
     return render(request, 'app_salas_reuniao/reservar_sala.html', {'form':form})
 
-def atualizar_equipamento(request):
-    sala_id = request.GET.get('sala_id')
+def get_equipamentos(request, sala_id):
     equipamentos = Equipamento.objects.filter(sala_id=sala_id).values('id', 'nome')
+<<<<<<< HEAD
     return JsonResponse(equipamentos, safe=False)
+=======
+    return JsonResponse({'equipamentos': list(equipamentos)})
+>>>>>>> parent of 54cbfac (Componete equipamento cadastrado com base na sala, equipe 4)
