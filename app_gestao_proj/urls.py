@@ -4,7 +4,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.app_gestao_proj,name='base_app_gestao'),
-    path('login/', auth_views.LoginView.as_view(template_name='app_gestao_proj/login.html'), name='login'),
 
     # urls para membros 
     path('membro/cadastrar', views.cadastrar_membros, name='cadastrar_membros'),
@@ -29,4 +28,7 @@ urlpatterns = [
     path('tarefa/alterar/<int:id>/', views.criar_tarefas, name='editar_tarefas'),
     path('tarefa/excluir/<int:id>/', views.excluir_tarefas, name='excluir_tarefas'),
     path('tarefas/', views.listar_tarefas, name='listar_tarefas'),
+
+    # url para vizualização do progresso
+    path('progresso_projetos', views.progresso_projetos, name='base_app_gestao'),
 ]

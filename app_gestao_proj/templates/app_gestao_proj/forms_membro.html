@@ -1,11 +1,11 @@
 {% extends 'app_gestao_proj/base_app_gestao.html' %}
 
-{% block title %} Cadastro de membros {% endblock %}
+{% block title %} Cadastro de Membros {% endblock %}
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container-sm"></div>
+<div class="container-sm mt-5">
     {%if messages %}
     <div>
         {% for massage in messages %}
@@ -17,9 +17,17 @@
     </div>
     {% endif %}
 
-    <div class="card">
+<!-- Verifica se existem equipes cadastrados no banco de dados se não existirem retorna um erro e direciona para o forms_equipe-->
+    {% if message %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }} 
+            <a href="{% url 'criar_equipes' %}" class="btn btn-link">Criar Equipe</a>
+        </div>
+    {% else %}
+
+    <div class="card mb-4">
         <div class="card-header">
-            Cadastrar Membros
+            <h5>Cadastrar Membros</h5>
         </div>
         <div class="card-body">
             <form method="POST"
@@ -54,21 +62,22 @@
             </form>
         </div>
     </div>           
-
+    {% endif %}
     <div class="card"></div>
         <div class="card-header">
-            Lista de membros
+            <h5>Lista de membros</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered">
+                    <thead class="table-light">
                         <tr>
-                            <td>Nome</td>
-                            <td>Função</td>
-                            <td>E-mail</td>
-                            <td>Telefone</td>
-                            <td>Equipe</td>
+                            <th>Nome</th>
+                            <th>Função</th>
+                            <th>E-mail</th>
+                            <th>Telefone</th>
+                            <th>Equipe</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,8 +88,10 @@
                             <td>{{i.email}}</td>
                             <td>{{i.telefone}}</td>
                             <td>{{i.equipe}}</td>
-                            <td><a href="{% url 'editar_membros' i.id %}"  class="btn btn-primary">Alterar</a></td>
-                                <td><a href="{% url 'excluir_membros' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            <td>
+                                <a href="{% url 'editar_membros' i.id %}"  class="btn btn-primary btn-sm">Alterar</a>
+                                <a href="{% url 'excluir_membros' i.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);">Excluir</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

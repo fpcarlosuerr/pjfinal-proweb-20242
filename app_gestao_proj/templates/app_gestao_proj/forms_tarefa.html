@@ -1,18 +1,18 @@
 {% extends 'app_gestao_proj/base_app_gestao.html' %}
 
 {% block title %} Cadastro de Tarefas {% endblock %}
-
+{% load static %}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container-sm"></div>
-    {%if messages %}
+<div class="container-sm">
+    {% if messages %}
     <div>
-        {% for massage in messages %}
-            <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
-                {{massage}}
-                <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
-            </div>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         {% endfor %}
     </div>
     {% endif %}
@@ -22,38 +22,49 @@
             Cadastrar Tarefas
         </div>
         <div class="card-body">
-            <form method="POST" action="{% if tarefa %}{% url 'editar_tarefas' tarefa.id %}{% else %}{% url 'criar_tarefas' %}{% endif %}">
+            <form method="POST" action="
+                                        {% if tarefa and tarefa.id %}
+                                            {% url 'editar_tarefas' tarefa.id %}
+                                        {% else %}
+                                            {% url 'criar_tarefas' %}
+                                        {% endif %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="id_projeto" class="form-label">{{ form.projeto.label }}</label>
-                    {{ form.projeto }}
+                    <label for="id_projeto" class="form-label">
+                        {{ form.projeto.label }}</label>
+                        {{ form.projeto }}
                 </div>
                 <div class="mb-3">
-                    <label for="id_nome_tarefa" class="form-label">{{ form.nome_tarefa.label }}</label>
-                    {{ form.nome_tarefa }}
+                    <label for="id_nome_tarefa" class="form-label">
+                        {{ form.nome_tarefa.label }}</label>
+                        {{ form.nome_tarefa }}
                 </div>
                 <div class="mb-3">
-                    <label for="id_descricao" class="form-label">{{ form.descricao.label }}</label>
-                    {{ form.descricao }}
+                    <label for="id_descricao" class="form-label">
+                        {{ form.descricao.label }}</label>
+                        {{ form.descricao }}
                 </div>
                 <div class="mb-3">
-                    <label for="id_situacao" class="form-label">{{ form.situacao.label }}</label>
-                    {{ form.situacao }}
+                    <label for="id_situacao" class="form-label">
+                        {{ form.situacao.label }}</label>
+                        {{ form.situacao }}
                 </div>
                 <div class="mb-3">
-                    <label for="id_data_conclusao" class="form-label">{{ form.data_conclusao.label }}</label>
-                    {{ form.data_conclusao }}
+                    <label for="id_data_conclusao" class="form-label">
+                        {{ form.data_conclusao.label }}</label>
+                        {{ form.data_conclusao }}
                 </div>
                 <div class="mb-3">
-                    <label for="id_membros_tarefa" class="form-label">{{ form.membros_tarefa.label }}</label>
-                    {{ form.membros_tarefa }}
+                    <label for="id_membros_equipe" class="form-label">
+                        {{ form.membros_equipe.label }}</label>
+                        {{ form.membros_equipe }}
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <a href="{% url 'listar_tarefas' %}" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
     </div>
-    
+
     <div class="card mt-4">
         <div class="card-header">
             Lista de Tarefas
@@ -70,7 +81,6 @@
                             <th>Situação</th>
                             <th>Data de Conclusão</th>
                             <th>Membros</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,10 +92,10 @@
                             <td>{{ i.descricao }}</td>
                             <td>{{ i.situacao }}</td>
                             <td>{{ i.data_conclusao|date:"d/m/Y" }}</td>
-                            <td>{{ i.membros_tarefa.all|join:", " }}</td>
+                            <td>{{ i.membros_equipe.all|join:", " }}</td>
                             <td>
                                 <a href="{% url 'editar_tarefas' i.id %}" class="btn btn-sm btn-primary">Alterar</a>
-                                <a href="{% url 'excluir_tarefas' i.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</a>
+                                <a href="{% url 'excluir_tarefas' i.id %}" class="btn btn-sm btn-danger delete-task" onclick="confirmDelete(event, this);"data-href="{% url 'excluir_tarefas' i.id %}">Excluir</a>
                             </td>
                         </tr>
                         {% empty %}
@@ -99,6 +109,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function confirmDelete(event, element) {
         event.preventDefault();  // Impede o link de ser seguido imediatamente
