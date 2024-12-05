@@ -25,11 +25,11 @@
         </div>
     {% else %}
 
-    <div class="card mb-4">
-        <div class="card-header">
+    <div class="card border-black mb-4">
+        <div class="card-header border-black text-center bg-primary-subtle">
             <h5>Cadastrar Membros</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body border-black bg-info">
             <form method="POST"
             action="{% if membro.id %} 
                          {% url 'editar_membros' membro.id %}
@@ -46,10 +46,6 @@
                     {{ form.funcao }}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label_tag }}
-                    {{ form.email }}
-                </div>
-                <div class="mb-3">
                     {{ form.telefone.label_tag }}
                     {{ form.telefone }}
                 </div>
@@ -57,21 +53,30 @@
                     {{ form.equipe.label_tag }}
                     {{ form.equipe }}
                 </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
                 <input type="hidden" id="{{membro.id}}">
-                <button type="submit" class="btn btn-primary">Salvar</button>    
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{% url 'listar_membros' %}" class="btn btn-secondary">Cancelar</a>
+                    
             </form>
         </div>
     </div>           
     {% endif %}
-    <div class="card"></div>
-        <div class="card-header">
+
+    <!-- Lista de Equipes -->
+    <div class="card border-black mb-4">
+        <div class="card-header border-black mb-4 bg-danger">
             <h5>Lista de membros</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
             <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="table-light">
+                <table class="table table-bordered border-black">
+                    <thead class="table-light border-black">
                         <tr>
+                            <th>#ID</th>
                             <th>Nome</th>
                             <th>Função</th>
                             <th>E-mail</th>
@@ -83,11 +88,12 @@
                     <tbody>
                         {% for i in lista_membros %}
                         <tr>
-                            <td>{{i.nome_membro}}</td>
-                            <td>{{i.funcao}}</td>
-                            <td>{{i.email}}</td>
-                            <td>{{i.telefone}}</td>
-                            <td>{{i.equipe}}</td>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.nome_membro }}</td>
+                            <td>{{ i.funcao }}</td>
+                            <td>{{ i.email }}</td>
+                            <td>{{ i.telefone }}</td>
+                            <td>{{ i.equipe }}</td>
                             <td>
                                 <a href="{% url 'editar_membros' i.id %}"  class="btn btn-primary btn-sm">Alterar</a>
                                 <a href="{% url 'excluir_membros' i.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);">Excluir</a>

@@ -5,7 +5,7 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container-sm">
+<div class="container-sm mt-5">
     {% if messages %}
     <div>
         {% for message in messages %}
@@ -17,11 +17,11 @@
     </div>
     {% endif %}
 
-    <div class="card">
-        <div class="card-header">
-            Cadastrar Tarefas
+    <div class="card border-black mb-4">
+        <div class="card-header border-black text-center bg-primary-subtle">
+            <h5>Cadastrar Tarefas</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body border-black bg-info">
             <form method="POST" action="
                                         {% if tarefa and tarefa.id %}
                                             {% url 'editar_tarefas' tarefa.id %}
@@ -65,14 +65,14 @@
         </div>
     </div>
 
-    <div class="card mt-4">
-        <div class="card-header">
-            Lista de Tarefas
+    <div class="card border-black mb-4">
+        <div class="card-header border-black mb-4 bg-danger">
+            <h5>Lista de Tarefas</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-bordered border-black">
+                    <thead class="table-light border-black">
                         <tr>
                             <th>#ID</th>
                             <th>Projeto</th>
@@ -81,6 +81,7 @@
                             <th>Situação</th>
                             <th>Data de Conclusão</th>
                             <th>Membros</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,8 +95,8 @@
                             <td>{{ i.data_conclusao|date:"d/m/Y" }}</td>
                             <td>{{ i.membros_equipe.all|join:", " }}</td>
                             <td>
-                                <a href="{% url 'editar_tarefas' i.id %}" class="btn btn-sm btn-primary">Alterar</a>
-                                <a href="{% url 'excluir_tarefas' i.id %}" class="btn btn-sm btn-danger delete-task" onclick="confirmDelete(event, this);"data-href="{% url 'excluir_tarefas' i.id %}">Excluir</a>
+                                <a href="{% url 'editar_tarefas' i.id %}" class="btn btn-primary btn-sm ">Alterar</a>
+                                <a href="{% url 'excluir_tarefas' i.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);"data-href="{% url 'excluir_tarefas' i.id %}">Excluir</a>
                             </td>
                         </tr>
                         {% empty %}

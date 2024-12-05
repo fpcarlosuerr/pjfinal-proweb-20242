@@ -62,8 +62,5 @@ def resevar_sala(request):
 
 def get_equipamentos(request, sala_id):
     equipamentos = Equipamento.objects.filter(sala_id=sala_id).values('id', 'nome')
-<<<<<<< HEAD
     return JsonResponse(equipamentos, safe=False)
-=======
     return JsonResponse({'equipamentos': list(equipamentos)})
->>>>>>> parent of 54cbfac (Componete equipamento cadastrado com base na sala, equipe 4)

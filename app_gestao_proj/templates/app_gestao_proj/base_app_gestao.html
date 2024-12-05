@@ -37,6 +37,11 @@
             display: block;
             height: 50px;
         }
+
+        .custom-background {
+        background-color: var(--bs-info-bg-subtle);
+        padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -52,9 +57,9 @@
                 
                 <div class="card-group">
 
-                        <div class="card border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card border-dark mb-3 ">
                             <div class="card-header text-bg-info mb-3">
-                                <h5 class="card-title">{{ projeto.nome_projeto }}</h5>
+                                <h5 class="card-title text-center">{{ projeto.nome_projeto }}</h5>
                             </div>
                             <div class="card-body">
                                 <p class="card-text"> {{ projeto.descricao }}</p>
@@ -64,26 +69,43 @@
                                 <p class="card-text">
                                     Equipe responsável: {{projeto.equipe_responsavel}}
                                 </p>
-
-                                <button type="button" class="btn btn-outline-dark" href="{% url 'listar_tarefas' %}">Listar Tarefas</button>
                                 
                                 <h6>Tarefas:</h6>
-                                
-                                <ul>
+                                <ul class="list-group">
                                     {% for tarefa in projeto.tarefa_set.all %}
-                                    <li>
-                                        <strong>{{ tarefa.nome_tarefa }}</strong> - 
-                                        Situação: {{ tarefa.get_situacao_display }}
-                                        <br>
-                                        Membros: 
-                                        {% if tarefa.membros_equipe.all %}
-                                            {{ tarefa.membros_equipe.all|join:", " }}
-                                        {% else %}
-                                            Nenhum membro associado.
-                                        {% endif %}
+                                    <li class="list-group-item list-group-item-primary" style="border-color: rgb(18, 4, 81);">
+                                        <form method="post" action="{% url 'base_app_gestao' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="tarefa_id" value="{{ tarefa.id }}">
+                                
+                                            <strong>{{ tarefa.nome_tarefa }}</strong>
+                                            <p>{{ tarefa.descricao }}</p>
+                                
+                                            <h6>Informações:</h6>
+                                            <p>Membros: 
+                                                {% if tarefa.membros_equipe.all %}
+                                                    {{ tarefa.membros_equipe.all|join:"; " }}
+                                                {% else %}
+                                                    Nenhum membro associado.
+                                                {% endif %}
+                                            </p>
+                                            <!-- Situação -->
+                                            <label for="situacao_{{ tarefa.id }}">Situação:</label>
+                                            <select name="situacao" id="situacao_{{ tarefa.id }}" class="form-control">
+                                                {% for value, label in situacao_choices %}
+                                                    <option value="{{ value }}" {% if tarefa.situacao == value %}selected{% endif %}>
+                                                        {{ label }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <br>
+                                
+                                            <!-- Botão de envio -->
+                                            <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
+                                        </form>
                                     </li>
                                     {% empty %}
-                                    <li>Não há tarefas para este projeto.</li>
+                                    <li class="list-group-item list-group-item-primary">Não há tarefas para este projeto.</li>
                                     {% endfor %}
                                 </ul>
                                 

@@ -3,7 +3,7 @@ from .import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.app_gestao_proj,name='base_app_gestao'),
+    path('', views.app_gestao_proj, name='base_app_gestao'),
 
     # urls para membros 
     path('membro/cadastrar', views.cadastrar_membros, name='cadastrar_membros'),

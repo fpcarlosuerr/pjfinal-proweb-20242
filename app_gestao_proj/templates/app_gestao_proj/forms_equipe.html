@@ -19,12 +19,13 @@
     {% endif %}
 
     <!-- Formulário de Cadastro de Equipes -->
-    <div class="card mb-4">
-        <div class="card-header">
+    <div class="card border-black mb-4">
+        <div class="card-header border-black text-center bg-primary-subtle">
             <h5>Cadastrar Equipes</h5>
         </div>
-        <div class="card-body">
-            <form method="POST" action="{% if equipe %} 
+        <div class="card-body border-black bg-info">
+            <form method="POST" action="
+                                        {% if equipe %} 
                                              {% url 'editar_equipes' equipe.id %}
                                          {% else %}
                                              {% url 'criar_equipes' %}
@@ -39,23 +40,23 @@
                     {{ form.descricao }}
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{% url 'listar_equipes' %}" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
     </div>
 
     <!-- Lista de Equipes -->
-    <div class="card">
-        <div class="card-header">
+    <div class="card border-black mb-4">
+        <div class="card-header border-black mb-4 bg-danger">
             <h5>Lista de Equipes</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
             <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="table-light">
+                <table class="table table-bordered border-black">
+                    <thead class="table-light border-black">
                         <tr>
                             <th>#ID</th>
                             <th>Equipe</th>
-                            <th>Membros</th>
                             <th>Descrição</th>
                             <th>Ações</th>
                         </tr>
@@ -65,11 +66,6 @@
                         <tr>
                             <td>{{ equipe.id }}</td>
                             <td>{{ equipe.nome_equipe }}</td>
-                            <td>
-                                {% for membro in equipe.membros_equipe.all %}
-                                    {{ membro.nome_membro }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </td>
                             <td>{{ equipe.descricao }}</td>
                             <td>
                                 <a href="{% url 'editar_equipes' equipe.id %}" class="btn btn-primary btn-sm">Alterar</a>

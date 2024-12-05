@@ -1,5 +1,7 @@
+from django.forms import modelform_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Prefetch
 from django.db.models import F, Q, Case, When, IntegerField, Count #
 from .models import Membro, Equipe, Tarefa, Projeto
 from .forms import MembroForm, EquipeForm, ProjetoForm, TarefaForm
@@ -255,8 +257,26 @@ def excluir_tarefas(request, id):
 
 # Calcula o progresso de cada projeto
 def progresso_projetos(request):
-    from django.db.models import Prefetch
+#Código experimental------------------------------------------
+    # Modelo do formulário de tarefas apenas para 'situacao'
+    TarefaForm = modelform_factory(
+        Tarefa,
+        fields=['situacao'],  # Apenas o campo 'situacao' será editável
+    )
 
+    if request.method == 'POST':
+        tarefa_id = request.POST.get('tarefa_id')
+        tarefa = get_object_or_404(Tarefa, pk=tarefa_id)
+        form = TarefaForm(request.POST, instance=tarefa)
+
+        if form.is_valid():
+            tarefa = form.save()
+            messages.success(request, 'Situação da tarefa atualizada com sucesso!')
+            return redirect('base_app_gestao')
+        else:
+            messages.error(request, 'Erro ao atualizar a situação da tarefa.')
+
+#Código experimental------------------------------------------
     # Anotações para calcular tarefas concluídas e progresso
     projetos = Projeto.objects.annotate(
         total_tarefas=Count('tarefa'),
@@ -274,7 +294,9 @@ def progresso_projetos(request):
             queryset=Tarefa.objects.prefetch_related('membros_equipe')  # Pré-carrega membros associados
         )
     )
-
+    # Passar as escolhas de situação para o contexto
+    situacao_choices = Tarefa.situacao_choices
     return render(request, 'app_gestao_proj/base_app_gestao.html', {
         'projetos': projetos,
+        'situacao_choices': situacao_choices,
     })

@@ -5,7 +5,7 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container-sm"></div>
+<div class="container-sm mt-5">
     {%if messages %}
     <div>
         {% for massage in messages %}
@@ -17,11 +17,11 @@
     </div>
     {% endif %}
 
-    <div class="card">
-        <div class="card-header">
-            Cadastrar Projetos
+    <div class="card border-black mb-4">
+        <div class="card-header border-black text-center bg-primary-subtle">
+            <h5>Cadastrar Projetos</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body border-black bg-info">
             <form method="POST"
             action="{% if projeto.id %} 
                          {% url 'editar_projetos' projeto.id %}
@@ -54,27 +54,29 @@
                     {{ form.data_conclusao }}
                 </div>
                 <input type="hidden" id="{{projeto.id}}">
-                <button type="submit" class="btn btn-primary">Salvar</button>    
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{% url 'listar_projetos' %}" class="btn btn-secondary">Cancelar</a>    
             </form>
         </div>
     </div>           
 
-    <div class="card"></div>
-        <div class="card-header">
-            Lista de projetos
+    <div class="card border-black mt-4">
+        <div class="card-header border-black mb-4 bg-danger">
+            <h5>Lista de projetos</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered">
+                    <thead class="table-light text-center">
                         <tr>
-                            <td>#id</td>
-                            <td>Equipe Responsável</td>
-                            <td>Projeto</td>
-                            <td>Descrição</td>
-                            <td>Situação</td>
-                            <td>Data de Inicio</td>
-                            <td>Data de conclusáo</td>
+                            <th>#id</th>
+                            <th>Equipe Responsável</th>
+                            <th>Projeto</th>
+                            <th>Descrição</th>
+                            <th>Situação</th>
+                            <th>Data de Inicio</th>
+                            <th>Data de conclusáo</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,8 +89,10 @@
                             <td>{{i.situacao}}</td>
                             <td>{{ i.data_inicio|date:"d/m/Y" }}</td>
                             <td>{{ i.data_conclusao|date:"d/m/Y" }}</td>
-                            <td><a href="{% url 'editar_projetos' i.id %}"  class="btn btn-primary">Alterar</a></td>
-                                <td><a href="{% url 'excluir_projetos' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            <td>
+                                <a href="{% url 'editar_projetos' i.id %}"  class="btn btn-primary btn-sm">Alterar</a>
+                                <a href="{% url 'excluir_projetos' i.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);">Excluir</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
