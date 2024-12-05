@@ -11,9 +11,58 @@
         <h6 class="card-text"><strong>Sala: </strong>{{ reserva.sala }}</h6>
         <p class="card-text"><strong>Início:</strong> {{ reserva.data_horario_inicio }}</p>
         <p class="card-text"><strong>Término:</strong> {{ reserva.data_horario_termino }}</p>
-        <a href="#" class="btn bg-primary text-white">Detalhes</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ reserva.id }}">
+            Detalhes
+        </button>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-{{ reserva.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalhes da Reserva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário ou conteúdo adicional -->
+                <div class="card-body">
+                    <p class="card-text"><strong>Funcionário: </strong>{{ reserva.funcionario }}</p>
+                    <p class="card-text"><strong>Sala: </strong>{{ reserva.sala }}</p>
+                    <p class="card-text"><strong>Equipamento: </strong>{{ reserva.equipamento }}</p>
+                    <p class="card-text"><strong>Hora Início: </strong>{{ reserva.data_horario_inicio }}</p>
+                    <p class="card-text"><strong>Hora Fim: </strong>{{ reserva.data_horario_termino }}</p>
+                </div>
+                <td><a href="{% url 'alterar_reserva' reserva.id %}"  class="btn btn-primary">Alterar</a></td>
+                <td><a href="{% url 'excluir_reserva' reserva.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(event, element) {
+        console.log('cheguei aqui')
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+            }
+    })
+}
+</script>
+
 {% endfor %}
 
 {% endblock %}

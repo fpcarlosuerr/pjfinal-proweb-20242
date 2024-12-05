@@ -1,6 +1,6 @@
 {% extends 'app_salas_reuniao/base_salas_reuniao.html' %}
 {% load static %}
-{% block title %} Cadastro de Equipes {% endblock %}
+{% block title %} Cadastro de Salas {% endblock %}
 
 {% block content %}
 <div class="container-sm"></div>
@@ -19,7 +19,12 @@
         Cadastrar Sala
     </div>
     <div class="card-body">
-        <form method="POST">
+        <form method="POST" 
+        action="{% if sala.id %} 
+                    {% url 'alterar_sala' sala.id %}
+                {% else %}
+                    {% url 'cadastrar_sala' %}
+                {% endif %}">
             {% csrf_token %}
             <div class="mb-3">
                 {{ form.nome.label_tag }}
@@ -38,5 +43,60 @@
         </form>
     </div>
 </div>
-
+<div class="card"></div>
+        <div class="card-header">
+            Lista de Salas
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#id</td>
+                            <td>Nome</td>
+                            <td>Capacidade</td>
+                            <td>Localizacao</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sala in lista_salas %}
+                        <tr>
+                            <td>{{sala.id}}</td>
+                            <td>{{sala.nome}}</td>
+                            <td>
+                                {% for sala in sala.nome.all %}
+                                    {{ sala }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{sala.localizacao}}</td>
+                            <td><a href="{% url 'alterar_sala' sala.id%}"  class="btn btn-primary">Alterar</a></td>
+                            <td><a href="{% url 'excluir_sala' sala.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(event, element) {
+        console.log('cheguei aqui')
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+            }
+        })
+    }
+</script>
 {% endblock %}

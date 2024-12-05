@@ -76,7 +76,7 @@
                             </td>
                             <td>{{i.descricao}}</td>
                             <td><a href="{% url 'editar_equipes' i.id %}"  class="btn btn-primary">Alterar</a></td>
-                                <td><a href="{% url 'excluir_equipes' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            <td><a href="{% url 'excluir_equipes' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -104,4 +104,10 @@
         })
     }
 </script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery (necessário para o Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

@@ -28,21 +28,9 @@ class Equipamento(models.Model):
 class Reserva(models.Model):
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
-    equipamento = models.ForeignKey(Equipamento, on_delete=models.CASCADE, default=1)
+    equipamento = models.ManyToManyField(Equipamento, default=1, blank=True)
     data_horario_inicio = models.DateTimeField()
     data_horario_termino = models.DateTimeField()
-
-    def verificacao(self):
-        reservas_conflitantes = Reserva.objects.filter(
-            sala=self.sala,
-            data_horario_inicio__lt=self.data_horario_termino,
-            data_horario_termino__gt=self.data_horario_inicio
-        )
-        if reservas_conflitantes.exists():
-            raise ValidationError(f"Esta sala já está reservada para o período selecionado pelo funcionario: {self.funcionario}")
-    def save(self, *args, **kwargs):
-        self.verificacao()
-        super().save(*args, **kwargs)
         
     def __str__(self):
         return f'Sala: {self.sala} reservada para {self.funcionario} de {self.data_horario_inicio} até {self.data_horario_termino}'

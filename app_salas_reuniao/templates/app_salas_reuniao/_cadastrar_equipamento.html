@@ -34,4 +34,60 @@
         </form>
     </div>
 </div>
+<div class="card">
+<div class="card-header">
+    Lista de Funcionarios
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>#id</td>
+                    <td>Nome</td>
+                    <td>Sala</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipamento in lista_equipamentos %}
+                <tr>
+                    <td>{{equipamento.id}}</td>
+                    <td>{{equipamento.nome}}</td>
+                    <td>{{equipamento.sala}}</td>
+                    <td>
+                        {% for equipamento in equipamento.nome.all %}
+                            {{ equipamento }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td><a href="{% url 'alterar_equipamento' equipamento.id%}"  class="btn btn-primary">Alterar</a></td>
+                    <td><a href="{% url 'excluir_equipamento' equipamento.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function confirmDelete(event, element) {
+        console.log('cheguei aqui')
+        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você não poderá desfazer esta ação!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+        }
+    })
+}
+</script>
 {% endblock %}

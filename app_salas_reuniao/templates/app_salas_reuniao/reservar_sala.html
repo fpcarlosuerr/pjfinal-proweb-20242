@@ -3,92 +3,120 @@
 {% block title %} Reservas de salas {% endblock %}
 
 {% block content %}
-<div class="container-sm"></div>
-{%if messages %}
-<div>
-    {% for massage in messages %}
-        <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
-            {{massage}}
-            <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
+<div class="container-sm">
+    <div class="row">
+        <div class="col-md-8">  <!-- Coluna para o formulário -->
+            {% if messages %}
+            <div>
+                {% for massage in messages %}
+                    <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
+                        {{massage}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <strong>Por favor corrija os seguintes erros:</strong>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="card mb-3" style="border: 1px solid #007bff;">
+                <div class="card-header bg-primary text-white">
+                    Reservar Sala de Reunião
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.funcionario.label_tag }}
+                            {{ form.funcionario }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.sala.label_tag }}
+                            {{ form.sala }}
+                        </div>
+                        <div class="mb-3" id="id_equipamento">
+                            {{ form.equipamento.label_tag }}
+                            {{ form.equipamento }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.data_horario_inicio.label_tag }}
+                            {{ form.data_horario_inicio }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.data_horario_termino.label_tag }}
+                            {{ form.data_horario_termino }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>    
+                    </form>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-</div>
-{% endif %}
-<div class="card mb-3" style="border: 1px solid #007bff;">
-    <div class="card-header bg-primary text-white">
-        Reservar Sala de Reunião
-    </div>
-    <div class="card-body">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-                {{ form.funcionario.label_tag }}
-                {{ form.funcionario }}
+
+        <div class="col-md-4">  <!-- Coluna para o card lateral -->
+            <div class="card mb-3">
+                <div class="card-header bg-secondary text-white">
+                    Regras de Reservas
+                </div>
+                <div class="card-body">
+                    <p>Por favor, observe as seguintes regras ao fazer uma reserva:</p>
+                    <ul>
+                        <li>O horário de reserva deve estar entre 08:00 e 12:00 ou 14:00 e 19:00.</li>
+                        <li>Verifique se a sala desejada está disponível antes de confirmar a reserva.</li>
+                        <li>Cancele sua reserva com pelo menos 12 horas de antecedência se não puder comparecer.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="mb-3">
-                {{ form.sala.label_tag }}
-                {{ form.sala }}
-            </div>
-            <div class="mb-3">
-                {{ form.equipamento.label_tag }}
-                {{ form.equipamento }}
-            </div>
-            <div class="mb-3">
-                {{ form.data_horario_inicio.label_tag }}
-                {{ form.data_horario_inicio }}
-            </div>
-            <div class="mb-3">
-                {{ form.data_horario_termino.label_tag }}
-                {{ form.data_horario_termino }}
-            </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>    
-        </form>
-    </div>
-</div>
+        </div>
+    </div> <!-- Fim da linha -->
+</div> <!-- Fim do container -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-<<<<<<< HEAD
-    $(document).ready(function() {
-        $('#sala_id').change(function() {
-            var salaId = $(this).val();
-            // Faça uma requisição AJAX para obter os equipamentos da sala selecionada
-            $.ajax({
-                url: '{% url "atualizar_equipamento" %}',
-                data: {
-                    'sala_id': salaId
-                },
-                success: function(data) {
-                    $('#id_equipamento').empty(); // Limpa as opções atuais
-                    $.each(data, function(index, equipamento) {
-                        $('#id_equipamento').append($('<option></option>').attr('value', equipamento.id).text(equipamento.nome));
+// Seu código JavaScript existente aqui
+$(document).ready(function() {
+    $('#id_sala').change(function() {
+        var salaId = $(this).val();
+        $.ajax({
+            url: "{% url 'atualizar_equipamento' %}",  // URL para buscar equipamentos
+            data: {
+                'sala_id': salaId
+            },
+            success: function(data) {
+                $('#id_equipamento').empty();  // Limpa as opções existentes
+                $.each(data.equipamentos, function(index, equipamento) {
+                    // Cria um checkbox para cada equipamento
+                    var checkbox = $('<input>', {
+                        type: 'checkbox',
+                        id: 'equipamento_' + equipamento.id,
+                        value: equipamento.id
                     });
-                }
-            });
-        });
-=======
-    document.getElementById('id_sala').addEventListener('change', function() {
-        var salaId = this.value;
-        
-        fetch(`/get-equipamentos/${salaId}/`)
-            .then(response => response.json())
-            .then(data => {
-                var equipamentoSelect = document.getElementById('id_equipamento');
-                equipamentoSelect.innerHTML = ''; // Limpa as opções existentes
-    
-                // Adiciona uma opção vazia
-                var option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'Selecione um Equipamento';
-                equipamentoSelect.appendChild(option);
-    
-                data.equipamentos.forEach(function(equipamento) {
-                    var option = document.createElement('option');
-                    option.value = equipamento.id;
-                    option.textContent = equipamento.nome;
-                    equipamentoSelect.appendChild(option);
+                    
+                    // Cria um label associado ao checkbox
+                    var label = $('<label>', {
+                        for: 'equipamento_' + equipamento.id,
+                        text: equipamento.nome
+                    });
+
+                    // Adiciona o checkbox e o label ao contêiner
+                    $('#id_equipamento').append($('<div>').append(checkbox).append(label));
                 });
-            })
-            .catch(error => console.error('Erro ao buscar equipamentos:', error));
->>>>>>> parent of 54cbfac (Componete equipamento cadastrado com base na sala, equipe 4)
+            }
+        });
     });
-    </script>
+});
+</script>
+
 {% endblock %}
