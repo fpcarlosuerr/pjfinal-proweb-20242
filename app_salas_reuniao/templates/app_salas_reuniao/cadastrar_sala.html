@@ -70,7 +70,7 @@
                             </td>
                             <td>{{sala.localizacao}}</td>
                             <td><a href="{% url 'alterar_sala' sala.id%}"  class="btn btn-primary">Alterar</a></td>
-                            <td><a href="{% url 'excluir_sala' sala.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                            <td><a href="{% url 'excluir_sala' sala.id %}" class="btn btn-danger" onclick="confirmDelete(event, this);">Excluir</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

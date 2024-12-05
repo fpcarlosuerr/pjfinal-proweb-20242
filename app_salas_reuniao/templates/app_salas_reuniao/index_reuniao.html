@@ -37,7 +37,7 @@
                     <p class="card-text"><strong>Hora Fim: </strong>{{ reserva.data_horario_termino }}</p>
                 </div>
                 <td><a href="{% url 'alterar_reserva' reserva.id %}"  class="btn btn-primary">Alterar</a></td>
-                <td><a href="{% url 'excluir_reserva' reserva.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+                <td><a href="{% url 'excluir_reserva' reserva.id %}" class="btn btn-danger" onclick="confirmDelete(event, this);">Excluir</a></td>
             </div>
         </div>
     </div>

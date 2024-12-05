@@ -5,78 +5,78 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container-sm"></div>
-    {%if messages %}
+<div class="container-sm mt-5">
+    <!-- Exibição de mensagens -->
+    {% if messages %}
     <div>
-        {% for massage in messages %}
-            <div class="alert alert-{{massage.tags}} alert-dismissible fade show" role="alert">
-                {{massage}}
-                <button type="button" class="btn-close" data-bs-dismiss = "alert" aria-label="Close"></button>
-            </div>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         {% endfor %}
     </div>
     {% endif %}
 
-    <div class="card">
-        <div class="card-header">
-            Cadastrar Equipes
+    <!-- Formulário de Cadastro de Equipes -->
+    <div class="card border-black mb-4">
+        <div class="card-header border-black text-center bg-primary-subtle">
+            <h5>Cadastrar Equipes</h5>
         </div>
-        <div class="card-body">
-            <form method="POST"
-            action="{% if equipe.id %} 
-                         {% url 'editar_equipes' equipe.id %}
-                    {% else %}
-                         {% url 'criar_equipes' %}
-                    {% endif %}">
+        <div class="card-body border-black bg-info">
+            <form method="POST" action="
+                                        {% if equipe %} 
+                                             {% url 'editar_equipes' equipe.id %}
+                                         {% else %}
+                                             {% url 'criar_equipes' %}
+                                         {% endif %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     {{ form.nome_equipe.label_tag }}
                     {{ form.nome_equipe }}
                 </div>
                 <div class="mb-3">
-                    {{ form.membros_equipe.label_tag }}
-                    {{ form.membros_equipe }}
-                    
-                </div>
-                <div class="mb-3">
                     {{ form.descricao.label_tag }}
                     {{ form.descricao }}
                 </div>
-                
-                <input type="hidden" id="{{equipe.id}}">
-                <button type="submit" class="btn btn-primary">Salvar</button>    
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{% url 'listar_equipes' %}" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
-    </div>           
+    </div>
 
-    <div class="card"></div>
-        <div class="card-header">
-            Lista de Equipes
+    <!-- Lista de Equipes -->
+    <div class="card border-black mb-4">
+        <div class="card-header border-black mb-4 bg-danger">
+            <h5>Lista de Equipes</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body text-center">
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered border-black">
+                    <thead class="table-light border-black">
                         <tr>
-                            <td>#id</td>
-                            <td>Equipe</td>
-                            <td>Membros</td>
-                            <td>Descrição</td>
+                            <th>#ID</th>
+                            <th>Equipe</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i in lista_equipes %}
+                        {% for equipe in lista_equipes %}
                         <tr>
-                            <td>{{i.id}}</td>
-                            <td>{{i.nome_equipe}}</td>
+                            <td>{{ equipe.id }}</td>
+                            <td>{{ equipe.nome_equipe }}</td>
+                            <td>{{ equipe.descricao }}</td>
                             <td>
-                                {% for membro in i.membros_equipe.all %}
-                                    {{ membro }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
+                                <a href="{% url 'editar_equipes' equipe.id %}" class="btn btn-primary btn-sm">Alterar</a>
+                                <a href="{% url 'excluir_equipes' equipe.id %}" class="btn btn-danger btn-sm" onclick="confirmDelete(event, this);">Excluir</a>
                             </td>
+<<<<<<< HEAD
                             <td>{{i.descricao}}</td>
                             <td><a href="{% url 'editar_equipes' i.id %}"  class="btn btn-primary">Alterar</a></td>
                             <td><a href="{% url 'excluir_equipes' i.id %}" class="btn btn-primary" onclick="confirmDelete(event, this);">Excluir</a></td>
+=======
+>>>>>>> 26da091cb6ff6bc757d5f9668253abbbbeae61d7
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -85,9 +85,11 @@
         </div>
     </div>
 </div>
+
+<!-- Script de confirmação para exclusão -->
 <script>
     function confirmDelete(event, element) {
-        event.preventDefault();  // Impede o link de ser seguido imediatamente
+        event.preventDefault(); // Impede o link de ser seguido imediatamente
         Swal.fire({
             title: 'Tem certeza?',
             text: "Você não poderá desfazer esta ação!",
@@ -99,9 +101,9 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = element.href;  // Se confirmado, segue o link de exclusão
+                window.location.href = element.href; // Se confirmado, segue o link de exclusão
             }
-        })
+        });
     }
 </script>
 <!-- Bootstrap CSS -->

@@ -184,4 +184,4 @@ def excluir_reserva(request, id):
 def atualizar_equipamento(request):
     sala_id = request.GET.get('sala_id')
     equipamentos = Equipamento.objects.filter(sala_id=sala_id).values('id', 'nome')
-    return JsonResponse({'equipamentos': list(equipamentos)})
+    return JsonResponse(equipamentos, safe=False)
